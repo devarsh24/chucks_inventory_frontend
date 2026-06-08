@@ -183,7 +183,7 @@ export default function RawItems({ rawItems, onCreateRawItem, onDeleteRawItem, o
           
           {rawItems.length > 0 ? (
             <div className="table-container" style={{ maxHeight: '450px', overflowY: 'auto' }}>
-              <table className="custom-table">
+              <table className="custom-table responsive-table">
                 <thead>
                   <tr>
                     <th>Name</th>
@@ -194,13 +194,13 @@ export default function RawItems({ rawItems, onCreateRawItem, onDeleteRawItem, o
                 <tbody>
                   {rawItems.map(item => (
                     <tr key={item._id}>
-                      <td style={{ fontWeight: 600 }}>{item.name}</td>
-                      <td>
+                      <td data-label="Name" style={{ fontWeight: 600 }}>{item.name}</td>
+                      <td data-label="Unit">
                         <span className="badge badge-warning" style={{ color: '#fff', background: 'rgba(255, 255, 255, 0.05)', border: '1px solid rgba(255, 255, 255, 0.1)' }}>
                           {item.unit}
                         </span>
                       </td>
-                      <td style={{ textAlign: 'right' }}>
+                      <td data-label="Action" style={{ textAlign: 'right' }}>
                         <button 
                           className="btn btn-secondary" 
                           style={{ padding: '0.4rem 0.8rem', color: 'var(--danger)', borderColor: 'rgba(239, 68, 68, 0.15)' }}

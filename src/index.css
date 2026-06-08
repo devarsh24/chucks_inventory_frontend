@@ -501,3 +501,169 @@ body {
   color: var(--primary);
   transform: translateY(-4px);
 }
+
+/* Mobile Header Trigger */
+.mobile-header {
+  display: none;
+  background: rgba(12, 14, 18, 0.95);
+  backdrop-filter: var(--glass-blur);
+  -webkit-backdrop-filter: var(--glass-blur);
+  border-bottom: var(--glass-border);
+  padding: 1rem 1.5rem;
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  z-index: 101;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.mobile-menu-btn {
+  background: transparent;
+  border: none;
+  color: var(--text-primary);
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 0.5rem;
+  border-radius: 8px;
+  transition: var(--transition-fast);
+}
+
+.mobile-menu-btn:hover {
+  background: rgba(255, 255, 255, 0.05);
+}
+
+/* Responsive Overrides */
+@media (max-width: 1024px) {
+  .sidebar {
+    width: 240px;
+  }
+  .main-content {
+    margin-left: 240px;
+    width: calc(100% - 240px);
+    padding: 2rem;
+  }
+}
+
+@media (max-width: 768px) {
+  .mobile-header {
+    display: flex;
+  }
+
+  .sidebar {
+    position: fixed;
+    top: 0;
+    left: 0;
+    bottom: 0;
+    width: 280px;
+    height: 100vh;
+    transform: translateX(-100%);
+    transition: transform 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    box-shadow: 10px 0 30px rgba(0, 0, 0, 0.5);
+    padding-top: 5rem; /* Make room for mobile header */
+  }
+
+  .sidebar.mobile-open {
+    transform: translateX(0);
+  }
+
+  .sidebar-backdrop {
+    display: none;
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: rgba(0, 0, 0, 0.5);
+    backdrop-filter: blur(4px);
+    -webkit-backdrop-filter: blur(4px);
+    z-index: 99;
+  }
+
+  .sidebar-backdrop.active {
+    display: block;
+  }
+
+  .main-content {
+    margin-left: 0;
+    width: 100%;
+    padding: 6rem 1rem 3rem 1rem; /* Padding for mobile header */
+  }
+
+  .page-header {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 1rem;
+  }
+
+  .page-title {
+    font-size: 1.8rem;
+  }
+
+  /* Responsive Tables to Cards */
+  .responsive-table, 
+  .responsive-table thead, 
+  .responsive-table tbody, 
+  .responsive-table th, 
+  .responsive-table td, 
+  .responsive-table tr { 
+    display: block; 
+  }
+  
+  .responsive-table thead tr { 
+    position: absolute;
+    top: -9999px;
+    left: -9999px;
+  }
+  
+  .responsive-table tr { 
+    border: 1px solid rgba(255, 255, 255, 0.05);
+    background: rgba(18, 20, 26, 0.4);
+    border-radius: 12px;
+    margin-bottom: 1rem;
+    padding: 0.75rem 1rem;
+    position: relative;
+    box-shadow: var(--glass-shadow);
+  }
+  
+  .responsive-table td { 
+    border: none;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.03); 
+    position: relative;
+    padding: 0.6rem 0;
+    padding-left: 45%; 
+    text-align: right;
+    min-height: 2.2rem;
+    display: flex;
+    justify-content: flex-end;
+    align-items: center;
+  }
+  
+  .responsive-table td:last-child {
+    border-bottom: 0;
+  }
+
+  .responsive-table td::before { 
+    position: absolute;
+    left: 0;
+    width: 40%; 
+    text-align: left;
+    white-space: nowrap;
+    content: attr(data-label);
+    font-weight: 600;
+    color: var(--text-secondary);
+    font-size: 0.75rem;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+  }
+
+  /* Specific adjustment for action button in tables */
+  .responsive-table td[data-label="Action"],
+  .responsive-table td[data-label="Actions"] {
+    justify-content: flex-end;
+  }
+}
+

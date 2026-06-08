@@ -1,6 +1,7 @@
 import React, { useState, useEffect, useRef } from 'react';
 import { api } from '../api';
 import { Search, Plus, Trash2, BookOpen } from 'lucide-react';
+import IngredientSearchSelect from '../components/IngredientSearchSelect';
 
 export default function Recipes({ recipes, rawItems, onSaveRecipe, onDeleteRecipe }) {
   // Autocomplete Search State
@@ -223,17 +224,12 @@ export default function Recipes({ recipes, rawItems, onSaveRecipe, onDeleteRecip
                   <div key={index} style={{ display: 'flex', gap: '1rem', marginBottom: '0.75rem', alignItems: 'center' }} className="animate-fade-in">
                     
                     <div style={{ flex: 2 }}>
-                      <select
-                        className="input-field"
+                      <IngredientSearchSelect
                         value={row.rawItemId}
-                        onChange={(e) => handleIngredientChange(index, 'rawItemId', e.target.value)}
-                      >
-                        {rawItems.map(item => (
-                          <option key={item._id} value={item._id}>
-                            {item.name}
-                          </option>
-                        ))}
-                      </select>
+                        options={rawItems}
+                        onChange={(val) => handleIngredientChange(index, 'rawItemId', val)}
+                        placeholder="Select Ingredient..."
+                      />
                     </div>
 
                     <div style={{ flex: 1, display: 'flex', alignItems: 'center', gap: '0.5rem' }}>
@@ -276,7 +272,7 @@ export default function Recipes({ recipes, rawItems, onSaveRecipe, onDeleteRecip
           
           {recipes.length > 0 ? (
             <div className="table-container">
-              <table className="custom-table">
+              <table className="custom-table responsive-table">
                 <thead>
                   <tr>
                     <th>Menu Product</th>
@@ -288,12 +284,12 @@ export default function Recipes({ recipes, rawItems, onSaveRecipe, onDeleteRecip
                 <tbody>
                   {recipes.map(recipe => (
                     <tr key={recipe._id}>
-                      <td>
+                      <td data-label="Menu Product">
                         <div style={{ fontWeight: 600 }}>{recipe.menuItemName}</div>
                       </td>
-                      <td style={{ color: 'var(--text-secondary)' }}>{recipe.menuItemSku}</td>
-                      <td>
-                        <div style={{ display: 'flex', flexWrap: 'wrap', gap: '0.5rem' }}>
+                      <td data-label="SKU Code" style={{ color: 'var(--text-secondary)' }}>{recipe.menuItemSku}</td>
+                      <td data-label="Ingredients">
+                        <div style={{ display: 'flex', flexWrap: 'wrap', gap: '0.5rem', justifyContent: 'flex-end' }}>
                           {recipe.ingredients.map((ing, i) => (
                             <span 
                               key={i} 
@@ -305,7 +301,7 @@ export default function Recipes({ recipes, rawItems, onSaveRecipe, onDeleteRecip
                           ))}
                         </div>
                       </td>
-                      <td style={{ textAlign: 'right' }}>
+                      <td data-label="Action" style={{ textAlign: 'right' }}>
                         <button 
                           className="btn btn-secondary" 
                           style={{ padding: '0.4rem 0.8rem', color: 'var(--danger)', borderColor: 'rgba(239, 68, 68, 0.15)' }}

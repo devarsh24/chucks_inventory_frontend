@@ -4,11 +4,12 @@ import Dashboard from './pages/Dashboard';
 import RawItems from './pages/RawItems';
 import Recipes from './pages/Recipes';
 import ActiveSession from './pages/ActiveSession';
-import { LayoutDashboard, ClipboardList, ChefHat, Activity, ServerCrash } from 'lucide-react';
+import { LayoutDashboard, ClipboardList, ChefHat, Activity, ServerCrash, Menu, X } from 'lucide-react';
 import './App.css';
 
 export default function App() {
   const [activeTab, setActiveTab] = useState('dashboard');
+  const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
   const [rawItems, setRawItems] = useState([]);
   const [recipes, setRecipes] = useState([]);
   const [sessions, setSessions] = useState([]);
@@ -133,10 +134,36 @@ export default function App() {
     );
   }
 
+  const handleNavClick = (tab) => {
+    setActiveTab(tab);
+    setMobileMenuOpen(false);
+  };
+
   return (
     <div className="app-container">
+      {/* Mobile Top Header */}
+      <header className="mobile-header">
+        <div style={{ display: 'flex', alignItems: 'center', gap: '0.75rem' }}>
+          <Activity size={22} style={{ color: 'var(--primary)' }} />
+          <span className="logo-text" style={{ fontSize: '1.2rem' }}>Chuck's Inventory</span>
+        </div>
+        <button
+          className="mobile-menu-btn"
+          onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
+          aria-label="Toggle navigation"
+        >
+          {mobileMenuOpen ? <X size={24} /> : <Menu size={24} />}
+        </button>
+      </header>
+
+      {/* Sidebar Backdrop (mobile) */}
+      <div
+        className={`sidebar-backdrop ${mobileMenuOpen ? 'active' : ''}`}
+        onClick={() => setMobileMenuOpen(false)}
+      />
+
       {/* Persistent Sidebar */}
-      <aside className="sidebar">
+      <aside className={`sidebar ${mobileMenuOpen ? 'mobile-open' : ''}`}>
         <div className="logo-container">
           <Activity size={28} style={{ color: 'var(--primary)' }} />
           <span className="logo-text">Chuck's Inventory</span>
@@ -145,7 +172,7 @@ export default function App() {
         <nav className="nav-links">
           <div 
             className={`nav-item ${activeTab === 'dashboard' ? 'active' : ''}`}
-            onClick={() => setActiveTab('dashboard')}
+            onClick={() => handleNavClick('dashboard')}
           >
             <LayoutDashboard className="nav-icon" />
             Dashboard
@@ -153,7 +180,7 @@ export default function App() {
 
           <div 
             className={`nav-item ${activeTab === 'raw-items' ? 'active' : ''}`}
-            onClick={() => setActiveTab('raw-items')}
+            onClick={() => handleNavClick('raw-items')}
           >
             <ClipboardList className="nav-icon" />
             Ingredients
@@ -161,7 +188,7 @@ export default function App() {
 
           <div 
             className={`nav-item ${activeTab === 'recipes' ? 'active' : ''}`}
-            onClick={() => setActiveTab('recipes')}
+            onClick={() => handleNavClick('recipes')}
           >
             <ChefHat className="nav-icon" />
             Recipes
@@ -169,7 +196,7 @@ export default function App() {
 
           <div 
             className={`nav-item ${activeTab === 'session' ? 'active' : ''}`}
-            onClick={() => setActiveTab('session')}
+            onClick={() => handleNavClick('session')}
           >
             <Activity className="nav-icon" />
             Day End Count

@@ -174,7 +174,7 @@ export default function ActiveSession({ activeSession, completedSessions, rawIte
           ) : (
             <form onSubmit={handleStartSession}>
               <div className="table-container" style={{ marginBottom: '1.5rem' }}>
-                <table className="custom-table">
+                <table className="custom-table responsive-table">
                   <thead>
                     <tr>
                       <th>Ingredient</th>
@@ -185,13 +185,13 @@ export default function ActiveSession({ activeSession, completedSessions, rawIte
                   <tbody>
                     {rawItems.map(item => (
                       <tr key={item._id}>
-                        <td style={{ fontWeight: 600 }}>{item.name}</td>
-                        <td>
+                        <td data-label="Ingredient" style={{ fontWeight: 600 }}>{item.name}</td>
+                        <td data-label="Unit">
                           <span className="badge" style={{ background: 'rgba(255,255,255,0.03)', border: '1px solid rgba(255,255,255,0.06)' }}>
                             {item.unit}
                           </span>
                         </td>
-                        <td>
+                        <td data-label="Initial Count">
                           <input
                             type="number"
                             step="any"
@@ -329,15 +329,15 @@ export default function ActiveSession({ activeSession, completedSessions, rawIte
 
         <form onSubmit={handleSubmitFinalCounts}>
           <div className="table-container" style={{ marginBottom: '1.5rem' }}>
-            <table className="custom-table">
+            <table className="custom-table responsive-table">
               <thead>
                 <tr>
                   <th>Ingredient</th>
                   <th>Unit</th>
                   <th style={{ textAlign: 'right' }}>Initial Count</th>
-                  <th style={{ textAlign: 'right' }}>Expected Usage (Recipes)</th>
+                  <th style={{ textAlign: 'right' }}>Expected Usage</th>
                   <th style={{ textAlign: 'right' }}>Expected Remaining</th>
-                  <th style={{ width: '180px' }}>Actual Final Count</th>
+                  <th>Actual Final Count</th>
                 </tr>
               </thead>
               <tbody>
@@ -354,16 +354,16 @@ export default function ActiveSession({ activeSession, completedSessions, rawIte
 
                   return (
                     <tr key={id}>
-                      <td style={{ fontWeight: 600 }}>{name}</td>
-                      <td>
+                      <td data-label="Ingredient" style={{ fontWeight: 600 }}>{name}</td>
+                      <td data-label="Unit">
                         <span className="badge" style={{ background: 'rgba(255,255,255,0.03)', border: '1px solid rgba(255,255,255,0.06)' }}>
                           {unit}
                         </span>
                       </td>
-                      <td style={{ textAlign: 'right', color: 'var(--text-secondary)' }}>{initial.toFixed(1)}</td>
-                      <td style={{ textAlign: 'right', color: 'var(--text-secondary)' }}>{usage.toFixed(1)}</td>
-                      <td style={{ textAlign: 'right', fontWeight: 600 }}>{expectedRemaining.toFixed(1)}</td>
-                      <td>
+                      <td data-label="Initial" style={{ textAlign: 'right', color: 'var(--text-secondary)' }}>{initial.toFixed(1)}</td>
+                      <td data-label="Expected Usage" style={{ textAlign: 'right', color: 'var(--text-secondary)' }}>{usage.toFixed(1)}</td>
+                      <td data-label="Exp. Remaining" style={{ textAlign: 'right', fontWeight: 600 }}>{expectedRemaining.toFixed(1)}</td>
+                      <td data-label="Actual Count">
                         <input
                           type="number"
                           step="any"
