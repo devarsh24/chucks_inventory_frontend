@@ -2,7 +2,7 @@ import React, { useMemo, useState } from 'react';
 import { BarChart, Bar, XAxis, YAxis, CartesianGrid, Tooltip, ResponsiveContainer, LineChart, Line, Legend } from 'recharts';
 import { 
   BarChart3, Package, BookOpen, AlertTriangle, CheckCircle, Calendar, 
-  Trash2, Eye, ArrowLeft, Search, ChevronLeft, ChevronRight, FileSpreadsheet 
+  Trash2, Eye, ArrowLeft, Search, ChevronLeft, ChevronRight, FileSpreadsheet, Clipboard 
 } from 'lucide-react';
 
 export default function Dashboard({ sessions, rawItems, recipes, onDeleteSession }) {
@@ -136,6 +136,9 @@ export default function Dashboard({ sessions, rawItems, recipes, onDeleteSession
                 year: 'numeric', 
                 month: 'long', 
                 day: 'numeric' 
+              })} at {new Date(selectedSession.date).toLocaleTimeString(undefined, {
+                hour: '2-digit',
+                minute: '2-digit'
               })}
             </h1>
             <p className="page-subtitle" style={{ margin: 0 }}>
@@ -463,6 +466,9 @@ export default function Dashboard({ sessions, rawItems, recipes, onDeleteSession
                           year: 'numeric', 
                           month: 'short', 
                           day: 'numeric' 
+                        })} at {new Date(session.date).toLocaleTimeString(undefined, {
+                          hour: '2-digit',
+                          minute: '2-digit'
                         })}
                       </td>
                       <td style={{ color: '#fff', fontStyle: 'italic' }}>
