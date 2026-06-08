@@ -1,0 +1,1 @@
+# chucks_inventory_frontend
