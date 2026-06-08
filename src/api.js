@@ -1,0 +1,110 @@
+const API_BASE_URL = 'http://localhost:5001/api';
+
+export const api = {
+  // Raw Items
+  getRawItems: async () => {
+    const res = await fetch(`${API_BASE_URL}/raw-items`);
+    if (!res.ok) throw new Error(await getErrorMessage(res));
+    return res.json();
+  },
+  createRawItem: async (item) => {
+    const res = await fetch(`${API_BASE_URL}/raw-items`, {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify(item),
+    });
+    if (!res.ok) throw new Error(await getErrorMessage(res));
+    return res.json();
+  },
+  deleteRawItem: async (id) => {
+    const res = await fetch(`${API_BASE_URL}/raw-items/${id}`, {
+      method: 'DELETE',
+    });
+    if (!res.ok) throw new Error(await getErrorMessage(res));
+    return res.json();
+  },
+
+  // Menu Items (autocomplete search)
+  searchMenuItems: async (query) => {
+    const res = await fetch(`${API_BASE_URL}/menu-items?query=${encodeURIComponent(query)}`);
+    if (!res.ok) throw new Error(await getErrorMessage(res));
+    return res.json();
+  },
+
+  // Recipes
+  getRecipes: async () => {
+    const res = await fetch(`${API_BASE_URL}/recipes`);
+    if (!res.ok) throw new Error(await getErrorMessage(res));
+    return res.json();
+  },
+  saveRecipe: async (recipe) => {
+    const res = await fetch(`${API_BASE_URL}/recipes`, {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify(recipe),
+    });
+    if (!res.ok) throw new Error(await getErrorMessage(res));
+    return res.json();
+  },
+  deleteRecipe: async (id) => {
+    const res = await fetch(`${API_BASE_URL}/recipes/${id}`, {
+      method: 'DELETE',
+    });
+    if (!res.ok) throw new Error(await getErrorMessage(res));
+    return res.json();
+  },
+
+  // Sessions
+  getSessions: async () => {
+    const res = await fetch(`${API_BASE_URL}/sessions`);
+    if (!res.ok) throw new Error(await getErrorMessage(res));
+    return res.json();
+  },
+  getActiveSession: async () => {
+    const res = await fetch(`${API_BASE_URL}/sessions/active`);
+    if (!res.ok) throw new Error(await getErrorMessage(res));
+    return res.json();
+  },
+  startSession: async (initialInventory) => {
+    const res = await fetch(`${API_BASE_URL}/sessions/start`, {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ initialInventory }),
+    });
+    if (!res.ok) throw new Error(await getErrorMessage(res));
+    return res.json();
+  },
+  uploadSales: async (formData) => {
+    const res = await fetch(`${API_BASE_URL}/sessions/upload-sales`, {
+      method: 'POST',
+      body: formData, // contains 'file' field
+    });
+    if (!res.ok) throw new Error(await getErrorMessage(res));
+    return res.json();
+  },
+  submitFinalCounts: async (actualFinalInventory) => {
+    const res = await fetch(`${API_BASE_URL}/sessions/submit-counts`, {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ actualFinalInventory }),
+    });
+    if (!res.ok) throw new Error(await getErrorMessage(res));
+    return res.json();
+  },
+  deleteSession: async (id) => {
+    const res = await fetch(`${API_BASE_URL}/sessions/${id}`, {
+      method: 'DELETE',
+    });
+    if (!res.ok) throw new Error(await getErrorMessage(res));
+    return res.json();
+  }
+};
+
+const getErrorMessage = async (res) => {
+  try {
+    const data = await res.json();
+    return data.error || 'Request failed';
+  } catch (e) {
+    return 'Server communication error';
+  }
+};
