@@ -107,7 +107,7 @@ export default function App() {
         <ServerCrash size={64} style={{ color: 'var(--danger)', marginBottom: '1.5rem' }} />
         <h2 style={{ fontSize: '1.8rem', fontWeight: 800, marginBottom: '0.5rem' }}>Express Backend Connection Failed</h2>
         <p style={{ color: 'var(--text-secondary)', maxWidth: '500px', marginBottom: '2rem' }}>
-          Could not communicate with the backend server running on `http://localhost:5001`. Please verify that the API server is active and running.
+          Could not communicate with the backend server. Please verify that the live API server is active and running.
         </p>
         <button className="btn btn-primary" onClick={loadData}>
           Try Reconnecting
